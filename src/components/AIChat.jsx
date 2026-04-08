@@ -108,13 +108,13 @@ export default function AIChat({ context = null, compact = false, placeholder, o
     const userBubble = 'linear-gradient(135deg, #7C3AED, #A855F7)';
 
     const QUICK_ACTIONS = context ? [
-        { label: '💡 Explique-moi ce concept', text: 'Explique-moi le concept derrière cette question' },
-        { label: '🔍 Une analogie ?', text: 'Donne-moi une analogie simple pour comprendre' },
-        { label: '🧩 Quel est le piège ?', text: 'Quels sont les pièges à éviter sur ce sujet ?' },
+        { label: 'Explique-moi ce concept', text: 'Explique-moi le concept derrière cette question' },
+        { label: 'Une analogie ?', text: 'Donne-moi une analogie simple pour comprendre' },
+        { label: 'Quel est le piège ?', text: 'Quels sont les pièges à éviter sur ce sujet ?' },
     ] : [
-        { label: '🤔 C\'est quoi un bon prompt ?', text: "C'est quoi les caractéristiques d'un bon prompt ?" },
-        { label: '⚡ Différence IA vs ML ?', text: "Quelle est la différence entre IA, Machine Learning et Deep Learning ?" },
-        { label: '🚀 Par où commencer ?', text: "Par où commencer pour intégrer l'IA dans mon travail ?" },
+        { label: "C'est quoi un bon prompt ?", text: "C'est quoi les caractéristiques d'un bon prompt ?" },
+        { label: 'Différence IA vs ML ?', text: "Quelle est la différence entre IA, Machine Learning et Deep Learning ?" },
+        { label: "Par où commencer ?", text: "Par où commencer pour intégrer l'IA dans mon travail ?" },
     ];
 
     return (
@@ -124,24 +124,6 @@ export default function AIChat({ context = null, compact = false, placeholder, o
             height: compact ? 420 : '100%',
             minHeight: compact ? 420 : 500,
         }}>
-            {/* Disclaimer */}
-            <div style={{
-                padding: compact ? '6px 12px' : '8px 16px',
-                background: 'rgba(124, 58, 237, 0.08)',
-                border: '1px solid rgba(124, 58, 237, 0.15)',
-                borderRadius: 'var(--radius-md)',
-                marginBottom: 12,
-                fontSize: '0.72rem',
-                color: 'var(--color-text-muted)',
-                fontFamily: 'var(--font-display)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                flexShrink: 0,
-            }}>
-                <span>🎓</span>
-                L'IA ne donne pas les réponses directes — elle t'aide à <strong>comprendre par toi-même</strong>.
-            </div>
 
             {/* Messages */}
             <div style={{
@@ -166,7 +148,7 @@ export default function AIChat({ context = null, compact = false, placeholder, o
                             <img
                                 src="/assets/alia-mascotte.png"
                                 alt="ALIA"
-                                style={{ width: 32, height: 32, objectFit: 'contain', flexShrink: 0, marginBottom: 4 }}
+                                style={{ width: 44, height: 44, objectFit: 'contain', flexShrink: 0, marginBottom: 4 }}
                             />
                         )}
 
@@ -194,7 +176,7 @@ export default function AIChat({ context = null, compact = false, placeholder, o
                 {/* Message en cours de streaming */}
                 {isStreaming && (
                     <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, animation: 'fadeInUp 0.3s ease-out' }}>
-                        <img src="/assets/alia-mascotte.png" alt="ALIA" style={{ width: 32, height: 32, objectFit: 'contain', flexShrink: 0 }} />
+                        <img src="/assets/alia-mascotte.png" alt="ALIA" style={{ width: 44, height: 44, objectFit: 'contain', flexShrink: 0 }} />
                         <div style={{
                             maxWidth: '78%',
                             padding: '10px 14px',

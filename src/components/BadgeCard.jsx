@@ -10,8 +10,8 @@ export default function BadgeCard({ badge, unlocked, onClick }) {
                 padding: '24px 16px',
                 borderRadius: 'var(--radius-lg)',
                 background: unlocked
-                    ? 'rgba(37, 27, 74, 0.5)'
-                    : 'rgba(26, 19, 50, 0.4)',
+                    ? 'var(--color-surface-2)'
+                    : 'var(--color-surface)',
                 border: unlocked
                     ? '1px solid rgba(168, 85, 247, 0.3)'
                     : '1px solid rgba(124, 58, 237, 0.1)',

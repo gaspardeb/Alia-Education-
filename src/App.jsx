@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserProvider, useUser } from './context/UserContext';
 import { ThemeProvider } from './context/ThemeContext';
-import ParticleBackground from './components/ParticleBackground';
 import NotificationToast from './components/NotificationToast';
 import AppLayout from './components/AppLayout';
 import LandingPage from './pages/LandingPage';
@@ -21,7 +20,6 @@ function AppContent() {
 
   return (
     <>
-      <ParticleBackground />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<AuthPage />} />

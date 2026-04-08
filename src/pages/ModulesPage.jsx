@@ -29,23 +29,17 @@ export default function ModulesPage() {
 
     return (
         <main style={{ padding: '32px 40px' }}>
-                <h1 style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '1.8rem',
-                    fontWeight: 700,
-                    marginBottom: 8,
-                    animation: 'fadeInUp 0.5s ease-out',
-                }}>
-                    Les 5 Modules
-                </h1>
-                <p style={{
-                    color: 'var(--color-text-muted)',
-                    fontSize: '0.9rem',
-                    marginBottom: 36,
-                    animation: 'fadeInUp 0.5s ease-out 0.05s both',
-                }}>
-                    Progressez à votre rythme à travers les modules du programme ALIA.
-                </p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 36, animation: 'fadeInUp 0.5s ease-out' }}>
+                    <img src="/assets/alia-mascotte.png" alt="ALIA" style={{ width: 80, height: 80, objectFit: 'contain' }} />
+                    <div>
+                        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: 700, marginBottom: 4 }}>
+                            Les 5 Modules
+                        </h1>
+                        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>
+                            Progressez à votre rythme à travers les modules du programme ALIA.
+                        </p>
+                    </div>
+                </div>
 
                 <div style={{
                     display: 'grid',

@@ -152,10 +152,13 @@ export default function ProgressionPage() {
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    fontSize: '1.4rem',
+                                    fontSize: '0.9rem',
+                                    fontFamily: 'var(--font-mono)',
+                                    fontWeight: 700,
+                                    color: mod.color,
                                     flexShrink: 0,
                                 }}>
-                                    {mod.icon}
+                                    {mod.id}
                                 </div>
                                 <div style={{ flex: 1 }}>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>

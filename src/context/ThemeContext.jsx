@@ -17,8 +17,8 @@ const DARK = {
 };
 
 const LIGHT = {
-    bg:          '#F5F3FF',
-    sidebar:     'rgba(255, 255, 255, 0.95)',
+    bg:          '#FFFFFF',
+    sidebar:     '#F5F3FF',
     header:      'rgba(255, 255, 255, 0.92)',
     surface:     'rgba(255, 255, 255, 0.85)',
     surface2:    'rgba(237, 233, 254, 0.55)',

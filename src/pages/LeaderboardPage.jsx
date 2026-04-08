@@ -20,12 +20,17 @@ export default function LeaderboardPage() {
 
     return (
         <main style={{ padding: '32px 40px' }}>
-                <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: 700, marginBottom: 8, animation: 'fadeInUp 0.5s ease-out' }}>
-                    🌍 Classement
-                </h1>
-                <p style={{ color: 'var(--color-text-muted)', marginBottom: 24, animation: 'fadeInUp 0.5s ease-out 0.1s both' }}>
-                    Comparez-vous aux meilleurs apprenants.
-                </p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 36, animation: 'fadeInUp 0.5s ease-out' }}>
+                    <img src="/assets/alia-mascotte.png" alt="ALIA" style={{ width: 80, height: 80, objectFit: 'contain' }} />
+                    <div>
+                        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: 700, marginBottom: 4 }}>
+                            Classement
+                        </h1>
+                        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>
+                            Comparez-vous aux meilleurs apprenants.
+                        </p>
+                    </div>
+                </div>
 
                 {/* Filters */}
                 <div style={{ display: 'flex', gap: 8, marginBottom: 32, animation: 'fadeInUp 0.5s ease-out 0.15s both' }}>
@@ -33,7 +38,7 @@ export default function LeaderboardPage() {
                         <button key={f.key} onClick={() => setFilter(f.key)} style={{
                             padding: '8px 18px', borderRadius: 'var(--radius-full)', border: 'none',
                             fontFamily: 'var(--font-display)', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer',
-                            background: filter === f.key ? 'linear-gradient(135deg, var(--color-primary), var(--color-primary-light))' : 'rgba(26,19,50,0.6)',
+                            background: filter === f.key ? 'linear-gradient(135deg, var(--color-primary), var(--color-primary-light))' : 'var(--color-surface)',
                             color: filter === f.key ? 'white' : 'var(--color-text-muted)',
                             border: filter === f.key ? 'none' : '1px solid var(--color-border)',
                             transition: 'all 0.3s ease',

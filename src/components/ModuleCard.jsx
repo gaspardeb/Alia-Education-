@@ -58,8 +58,7 @@ export default function ModuleCard({ module, progress, completedCount, status })
                 {module.id}
             </div>
 
-            {/* Icon & Title */}
-            <div style={{ fontSize: '2rem', marginBottom: 8 }}>{module.icon}</div>
+            {/* Title */}
             <h3 style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.1rem',

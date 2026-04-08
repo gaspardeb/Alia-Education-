@@ -103,7 +103,7 @@ export default function Dashboard() {
                             fontWeight: 700,
                             marginBottom: 4,
                         }}>
-                            Bonjour {user.firstName} 👋
+                            Bonjour {user.firstName}
                         </h1>
                         <p style={{
                             color: 'var(--color-text-muted)',
@@ -252,20 +252,6 @@ export default function Dashboard() {
                         e.currentTarget.style.boxShadow = '';
                     }}
                 >
-                    <div style={{
-                        width: 64,
-                        height: 64,
-                        borderRadius: 'var(--radius-md)',
-                        background: `${currentModule.color}15`,
-                        border: `1px solid ${currentModule.color}30`,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '2rem',
-                        flexShrink: 0,
-                    }}>
-                        {currentModule.icon}
-                    </div>
                     <div style={{ flex: 1 }}>
                         <div style={{
                             fontSize: '0.75rem',
