@@ -5,6 +5,14 @@ import AliaCharacter from '../components/AliaCharacter';
 import ThemeToggle from '../components/ThemeToggle';
 import { useTheme } from '../context/ThemeContext';
 
+const HERO_PHRASES = [
+    'Dépassez vos limites.',
+    'Boostez votre carrière.',
+    'Prenez de l\'avance.',
+    'Devenez expert IA.',
+    'Changez de dimension.',
+];
+
 const FEATURES = [
     { icon: '🎮', title: 'Gamification complète', desc: 'XP, niveaux, badges, classement — chaque action te fait progresser.' },
     { icon: '🏢', title: "Cas d'usage réels", desc: 'Exercices directement applicables en entreprise dès demain.' },
@@ -46,6 +54,19 @@ function AnimatedCounter({ end, suffix = '', duration = 2000 }) {
 export default function LandingPage() {
     const navigate = useNavigate();
     const { c } = useTheme();
+    const [phraseIndex, setPhraseIndex] = useState(0);
+    const [visible, setVisible] = useState(true);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setVisible(false);
+            setTimeout(() => {
+                setPhraseIndex(i => (i + 1) % HERO_PHRASES.length);
+                setVisible(true);
+            }, 400);
+        }, 3000);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <div style={{ minHeight: '100vh' }}>
@@ -175,7 +196,20 @@ export default function LandingPage() {
                             animation: 'fadeInUp 0.6s ease-out 0.1s both',
                         }}>
                             Maîtrisez l'IA.<br />
-                            <span className="text-gradient">Dépassez vos limites.</span>
+                            <span style={{ display: 'block', height: '1.05em', overflow: 'hidden' }}>
+                                <span
+                                    className="text-gradient"
+                                    style={{
+                                        display: 'block',
+                                        whiteSpace: 'nowrap',
+                                        opacity: visible ? 1 : 0,
+                                        transform: visible ? 'translateY(0)' : 'translateY(10px)',
+                                        transition: 'opacity 0.4s ease, transform 0.4s ease',
+                                    }}
+                                >
+                                    {HERO_PHRASES[phraseIndex]}
+                                </span>
+                            </span>
                         </h1>
 
                         <p style={{
@@ -245,7 +279,6 @@ export default function LandingPage() {
                         <AliaCharacter
                             state="waving"
                             size={310}
-                            message="Salut ! Je suis ALIA, ta guide pour maîtriser l'IA 🚀"
                         />
                     </div>
                 </div>
@@ -347,102 +380,87 @@ export default function LandingPage() {
                             style={{
                                 padding: '20px 28px',
                                 display: 'grid',
-                                gridTemplateColumns: 'auto 1fr auto auto auto',
+                                gridTemplateColumns: 'auto 1fr auto auto',
                                 alignItems: 'center',
-                                gap: 20,
+                                gap: 24,
                                 transition: 'all 0.3s ease',
-                                position: 'relative',
-                                overflow: 'hidden',
                                 animation: `fadeInUp 0.5s ease-out ${i * 0.1}s both`,
+                                cursor: 'pointer',
                             }}
+                            onClick={() => navigate('/login')}
                             onMouseEnter={e => {
-                                e.currentTarget.style.transform = 'translateX(8px)';
-                                e.currentTarget.style.borderColor = `${m.color}40`;
+                                e.currentTarget.style.transform = 'translateX(6px)';
+                                e.currentTarget.style.borderColor = `${m.color}50`;
                             }}
                             onMouseLeave={e => {
                                 e.currentTarget.style.transform = '';
                                 e.currentTarget.style.borderColor = '';
                             }}
                         >
+                            {/* Icon */}
                             <div style={{
-                                width: 50,
-                                height: 50,
+                                width: 48,
+                                height: 48,
                                 borderRadius: 'var(--radius-md)',
                                 background: `${m.color}15`,
                                 border: `1px solid ${m.color}30`,
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                fontSize: '1.5rem',
+                                fontSize: '1.4rem',
+                                flexShrink: 0,
                             }}>
                                 {m.icon}
                             </div>
 
-                            <div>
+                            {/* Title + description */}
+                            <div style={{ minWidth: 0 }}>
                                 <h3 style={{
-                                    fontSize: '1rem',
+                                    fontSize: '0.95rem',
                                     fontWeight: 600,
                                     fontFamily: 'var(--font-display)',
-                                    marginBottom: 4,
+                                    marginBottom: 3,
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
                                 }}>
                                     Module {m.id} — {m.title}
                                 </h3>
-                                <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>{m.description}</p>
+                                <p style={{
+                                    fontSize: '0.78rem',
+                                    color: 'var(--color-text-muted)',
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                }}>
+                                    {m.description}
+                                </p>
                             </div>
 
+                            {/* Leçons */}
                             <div style={{
                                 fontFamily: 'var(--font-mono)',
-                                fontSize: '0.75rem',
+                                fontSize: '0.72rem',
                                 color: 'var(--color-text-muted)',
+                                whiteSpace: 'nowrap',
                             }}>
                                 {m.lessons.length} leçons
                             </div>
 
+                            {/* Level pill */}
                             <div style={{
                                 padding: '4px 12px',
                                 borderRadius: 'var(--radius-full)',
                                 background: `${m.color}15`,
+                                border: `1px solid ${m.color}30`,
                                 fontSize: '0.7rem',
                                 fontFamily: 'var(--font-mono)',
                                 color: m.color,
+                                whiteSpace: 'nowrap',
                             }}>
                                 {m.level}
                             </div>
 
-                            <div style={{
-                                fontSize: '0.8rem',
-                                color: 'var(--color-text-muted)',
-                                filter: 'grayscale(100%) blur(1px)',
-                                opacity: 0.5,
-                            }}>
-                                {m.badgeIcon} {m.badge}
-                            </div>
-
-                            {/* Lock overlay */}
-                            <div style={{
-                                position: 'absolute',
-                                top: 0,
-                                right: 0,
-                                bottom: 0,
-                                width: 120,
-                                background: 'linear-gradient(90deg, transparent, rgba(13,10,26,0.9))',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'flex-end',
-                                paddingRight: 20,
-                            }}>
-                                <span style={{
-                                    fontSize: '0.75rem',
-                                    color: 'var(--color-accent)',
-                                    fontFamily: 'var(--font-display)',
-                                    fontWeight: 600,
-                                    cursor: 'pointer',
-                                }}
-                                    onClick={() => navigate('/login')}
-                                >
-                                    🔒 Se connecter
-                                </span>
-                            </div>
                         </div>
                     ))}
                 </div>

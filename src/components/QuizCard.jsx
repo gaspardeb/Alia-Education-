@@ -2,13 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import AliaCharacter from './AliaCharacter';
 import QuizAIWidget from './QuizAIWidget';
 
-const ALIA_ASKING = [
-    'Dis-moi ce que tu en penses ! 🎯',
-    'À toi de jouer ! 💡',
-    'Montre-moi ce que tu sais ! 🧠',
-    'Réfléchis bien... 🤔',
-];
-
 export default function QuizCard({ questions, onComplete, onAnswer, moduleLabel }) {
     const [current, setCurrent] = useState(0);
     const [selected, setSelected] = useState(null);
@@ -16,7 +9,6 @@ export default function QuizCard({ questions, onComplete, onAnswer, moduleLabel 
     const [score, setScore] = useState(0);
     const [finished, setFinished] = useState(false);
     const [aliaState, setAliaState] = useState('thinking');
-    const [aliaMessage, setAliaMessage] = useState(ALIA_ASKING[0]);
     const aliaTimer = useRef(null);
     const scoreRef = useRef(0);
 
@@ -26,7 +18,6 @@ export default function QuizCard({ questions, onComplete, onAnswer, moduleLabel 
     useEffect(() => {
         clearTimeout(aliaTimer.current);
         setAliaState('thinking');
-        setAliaMessage(ALIA_ASKING[current % ALIA_ASKING.length]);
     }, [current]);
 
     const handleAnswer = (idx) => {
@@ -38,10 +29,8 @@ export default function QuizCard({ questions, onComplete, onAnswer, moduleLabel 
             scoreRef.current += 1;
             setScore(prev => prev + 1);
             setAliaState('happy');
-            setAliaMessage('Bravo ! C\'est exact ! 🎉');
         } else {
             setAliaState('sad');
-            setAliaMessage('Pas tout à fait... Lis l\'explication ! 📖');
         }
         onAnswer?.(isCorrect);
     };
@@ -57,13 +46,10 @@ export default function QuizCard({ questions, onComplete, onAnswer, moduleLabel 
             const pct = Math.round((scoreRef.current / questions.length) * 100);
             if (pct >= 80) {
                 setAliaState('levelup');
-                setAliaMessage('Excellent ! Tu maîtrises le sujet ! 🌟');
             } else if (pct >= 50) {
                 setAliaState('happy');
-                setAliaMessage('Bien joué ! Continue comme ça ! 👍');
             } else {
                 setAliaState('sad');
-                setAliaMessage('Relis la leçon et réessaie ! 💪');
             }
             onComplete?.(pct);
         }
@@ -82,7 +68,6 @@ export default function QuizCard({ questions, onComplete, onAnswer, moduleLabel 
                     <AliaCharacter
                         state={aliaState}
                         size={110}
-                        message={aliaMessage}
                     />
                 </div>
                 <h3 style={{
@@ -124,7 +109,6 @@ export default function QuizCard({ questions, onComplete, onAnswer, moduleLabel 
                     <AliaCharacter
                         state={aliaState}
                         size={80}
-                        message={aliaMessage}
                     />
                 </div>
                 <div style={{ flex: 1, paddingTop: 4 }}>
@@ -183,7 +167,7 @@ export default function QuizCard({ questions, onComplete, onAnswer, moduleLabel 
                                 background: isCorrect ? 'rgba(16,185,129,0.15)'
                                     : isWrong ? 'rgba(239,68,68,0.15)'
                                         : selected === i ? 'rgba(124,58,237,0.1)'
-                                            : 'rgba(13,10,26,0.4)',
+                                            : 'var(--color-surface)',
                                 color: 'var(--color-text)',
                                 fontFamily: 'var(--font-body)',
                                 fontSize: '0.9rem',
@@ -203,7 +187,7 @@ export default function QuizCard({ questions, onComplete, onAnswer, moduleLabel 
                             onMouseLeave={e => {
                                 if (!answered && selected !== i) {
                                     e.currentTarget.style.borderColor = 'var(--color-border)';
-                                    e.currentTarget.style.background = 'rgba(13,10,26,0.4)';
+                                    e.currentTarget.style.background = 'var(--color-surface)';
                                 }
                             }}
                         >

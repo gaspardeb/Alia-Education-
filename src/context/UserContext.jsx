@@ -22,6 +22,7 @@ const DEFAULT_USER = {
     xpToday: 150,
     subscription: 'free', // 'free' | 'premium'
     profilePhotoUrl: null,
+    aiRequestsUsed: 0,
 };
 
 export function UserProvider({ children }) {
@@ -116,6 +117,12 @@ export function UserProvider({ children }) {
     const isBadgeUnlocked = (badgeId) => user.unlockedBadges.includes(badgeId);
     const isPremium = () => user.subscription === 'premium';
 
+    const AI_LIMIT = () => isPremium() ? 50 : 5;
+    const getAIRequestsLeft = () => Math.max(0, AI_LIMIT() - (user.aiRequestsUsed || 0));
+    const incrementAIRequests = () => {
+        setUser(prev => ({ ...prev, aiRequestsUsed: (prev.aiRequestsUsed || 0) + 1 }));
+    };
+
     const upgradeSubscription = (plan) => {
         setUser(prev => ({ ...prev, subscription: plan }));
         addNotification('🎉 Bienvenue en Premium ! Profite de toutes les fonctionnalités.', 'levelup');
@@ -136,6 +143,8 @@ export function UserProvider({ children }) {
             isLessonCompleted,
             isBadgeUnlocked,
             isPremium,
+            getAIRequestsLeft,
+            incrementAIRequests,
             upgradeSubscription,
         }}>
             {children}

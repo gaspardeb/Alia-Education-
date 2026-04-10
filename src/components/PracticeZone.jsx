@@ -83,7 +83,7 @@ export default function PracticeZone({ lessonTitle, onLoadingChange }) {
                 {/* Terminal header */}
                 <div style={{
                     padding: '8px 16px',
-                    background: 'rgba(13, 10, 26, 0.8)',
+                    background: 'var(--color-surface-2)',
                     borderBottom: '1px solid var(--color-border)',
                     display: 'flex',
                     alignItems: 'center',
@@ -109,7 +109,7 @@ export default function PracticeZone({ lessonTitle, onLoadingChange }) {
                     style={{
                         width: '100%',
                         padding: 16,
-                        background: 'rgba(13, 10, 26, 0.6)',
+                        background: 'var(--color-surface)',
                         border: 'none',
                         color: 'var(--color-text)',
                         fontFamily: 'var(--font-mono)',
@@ -142,7 +142,7 @@ export default function PracticeZone({ lessonTitle, onLoadingChange }) {
                 <div style={{
                     padding: 20,
                     borderRadius: 'var(--radius-md)',
-                    background: 'rgba(37, 27, 74, 0.4)',
+                    background: 'var(--color-surface-2)',
                     border: '1px solid rgba(124, 58, 237, 0.2)',
                     animation: 'fadeInUp 0.5s ease-out',
                 }}>

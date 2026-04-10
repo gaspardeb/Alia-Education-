@@ -109,7 +109,7 @@ export default function SettingsPage() {
                 {/* Profile */}
                 <section className="glass" style={{ padding: 28, marginBottom: 24, animation: 'fadeInUp 0.5s ease-out 0.1s both' }}>
                     <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, marginBottom: 20 }}>
-                        👤 Profil
+                        Profil
                     </h2>
 
                     {/* Photo de profil */}
@@ -275,7 +275,7 @@ export default function SettingsPage() {
                 {/* Appearance */}
                 <section className="glass" style={{ padding: 28, marginBottom: 24, animation: 'fadeInUp 0.5s ease-out 0.2s both' }}>
                     <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, marginBottom: 20 }}>
-                        🎨 Apparence
+                        Apparence
                     </h2>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <div>
@@ -293,7 +293,7 @@ export default function SettingsPage() {
                 {/* Subscription */}
                 <section className="glass" style={{ padding: 28, marginBottom: 24, animation: 'fadeInUp 0.5s ease-out 0.3s both' }}>
                     <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, marginBottom: 20 }}>
-                        ⭐ Abonnement
+                        Abonnement
                     </h2>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <div>
@@ -344,7 +344,7 @@ export default function SettingsPage() {
                 {/* Notifications */}
                 <section className="glass" style={{ padding: 28, animation: 'fadeInUp 0.5s ease-out 0.4s both' }}>
                     <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, marginBottom: 20 }}>
-                        🔔 Notifications
+                        Notifications
                     </h2>
                     {[
                         { label: 'Rappels de streak quotidien', desc: 'ALIA te rappelle de faire ta leçon du jour', defaultOn: true },

@@ -8,27 +8,6 @@ import AliaCharacter from '../components/AliaCharacter';
 import confetti from 'canvas-confetti';
 import AdBanner from '../components/AdBanner';
 
-const STEP_MESSAGES = [
-    "Lis bien, ce sera utile ! 📚",
-    "Regarde cet exemple, c'est clé ! 💡",
-    "À toi de jouer ! Je crois en toi 💪",
-    "Concentre-toi ! Tu peux le faire 🎯",
-    null,
-];
-
-const CORRECT_MESSAGES = [
-    "PARFAIT ! Tu maîtrises ça ! 🎉",
-    "Incroyable ! Tu es une machine ! 🤖⚡",
-    "EXACTEMENT ! Tu assures ! 🏆",
-    "Bravo ! Tu m'impressionnes vraiment ! ⭐",
-];
-
-const WRONG_MESSAGES = [
-    "Pas de souci ! Chaque erreur fait progresser 💡",
-    "Presque ! Relis l'explication et réessaie 🔄",
-    "Même moi j'ai mis du temps à comprendre ça ! 😅",
-    "Ensemble on va y arriver ! 💪",
-];
 
 const SAMPLE_CONTENT = {
     "1.1": {
@@ -72,31 +51,27 @@ const SAMPLE_CONTENT = {
 export default function LessonPage() {
     const { moduleId, lessonIndex } = useParams();
     const navigate = useNavigate();
-    const { user, addXP, completeLesson, unlockBadge, addNotification } = useUser();
+    const { user, addXP, completeLesson, unlockBadge, addNotification, isPremium } = useUser();
     const [currentStep, setCurrentStep] = useState(0);
     const [lessonCompleted, setLessonCompleted] = useState(false);
 
     // Alia state
     const [aliaState, setAliaState] = useState('idle');
-    const [aliaMessage, setAliaMessage] = useState(STEP_MESSAGES[0]);
     const aliaReturnTimer = useRef(null);
 
-    const triggerAlia = useCallback((newState, message, duration = null) => {
+    const triggerAlia = useCallback((newState, duration = null) => {
         clearTimeout(aliaReturnTimer.current);
         setAliaState(newState);
-        setAliaMessage(message);
         if (duration) {
             aliaReturnTimer.current = setTimeout(() => {
                 setAliaState('idle');
-                setAliaMessage(null);
             }, duration);
         }
     }, []);
 
-    // Update Alia message when step changes
+    // Reset Alia state when step changes
     useEffect(() => {
         setAliaState('idle');
-        setAliaMessage(STEP_MESSAGES[currentStep] || null);
     }, [currentStep]);
 
     useEffect(() => () => clearTimeout(aliaReturnTimer.current), []);
@@ -104,6 +79,23 @@ export default function LessonPage() {
     const mod = MODULES.find(m => m.id === parseInt(moduleId));
     const lessonIdx = parseInt(lessonIndex) - 1;
     const lesson = mod?.lessons[lessonIdx];
+
+    if (mod && [3, 4, 5].includes(mod.id) && !isPremium()) {
+        return (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
+                <div style={{ textAlign: 'center', maxWidth: 400, padding: 32 }}>
+                    <img src="/assets/alia-mascotte.png" alt="ALIA" style={{ width: 80, height: 80, objectFit: 'contain', marginBottom: 16 }} />
+                    <h2 style={{ fontFamily: 'var(--font-display)', marginBottom: 12 }}>Contenu Premium</h2>
+                    <p style={{ color: 'var(--color-text-muted)', marginBottom: 24, lineHeight: 1.6 }}>
+                        Ce module est réservé aux abonnés Premium. Passe à l'abonnement pour accéder à l'intégralité du programme.
+                    </p>
+                    <Link to="/pricing" className="btn btn-primary" style={{ display: 'inline-block', padding: '12px 28px' }}>
+                        Voir les offres Premium
+                    </Link>
+                </div>
+            </div>
+        );
+    }
 
     if (!mod || !lesson) {
         return (
@@ -139,9 +131,9 @@ export default function LessonPage() {
             if (allModuleLessons) {
                 const badgeMap = { 1: 'initiateur', 2: 'architecte-prompt', 3: 'pro-augmente', 4: 'automatiseur-elite', 5: 'stratege' };
                 unlockBadge(badgeMap[mod.id]);
-                triggerAlia('happy', `MODULE TERMINÉ ! Tu es incroyable ! 🚀🏆`, 3000);
+                triggerAlia('happy', 3000);
             } else {
-                triggerAlia('happy', `Leçon terminée ! +${lesson.xp} XP ! 🎉`, 2500);
+                triggerAlia('happy', 2500);
             }
 
             confetti({
@@ -156,11 +148,9 @@ export default function LessonPage() {
 
     const handleQuizAnswer = (isCorrect) => {
         if (isCorrect) {
-            const msg = CORRECT_MESSAGES[Math.floor(Math.random() * CORRECT_MESSAGES.length)];
-            triggerAlia('happy', msg, 2500);
+            triggerAlia('happy', 2500);
         } else {
-            const msg = WRONG_MESSAGES[Math.floor(Math.random() * WRONG_MESSAGES.length)];
-            triggerAlia('sad', msg, 3000);
+            triggerAlia('sad', 3000);
         }
     };
 
@@ -172,10 +162,9 @@ export default function LessonPage() {
 
     const handlePracticeLoading = (isLoading) => {
         if (isLoading) {
-            triggerAlia('thinking', null);
+            triggerAlia('thinking');
         } else {
             setAliaState('idle');
-            setAliaMessage(STEP_MESSAGES[2]);
         }
     };
 
@@ -618,7 +607,6 @@ export default function LessonPage() {
             <AliaCharacter
                 state={aliaState}
                 size={90}
-                message={aliaMessage}
                 fixed
             />
         </div>

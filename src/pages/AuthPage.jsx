@@ -83,7 +83,6 @@ export default function AuthPage() {
                         <AliaCharacter
                             state="waving"
                             size={180}
-                            message="Content de te revoir ! 👋"
                         />
                     </div>
                     <h2 style={{
@@ -199,7 +198,7 @@ export default function AuthPage() {
                                 fontSize: '1.5rem',
                                 marginBottom: 8,
                             }}>
-                                Content de te revoir ! 👋
+                                Content de te revoir !
                             </h2>
                             <p style={{
                                 color: 'var(--color-text-muted)',
@@ -225,7 +224,7 @@ export default function AuthPage() {
                                 </div>
 
                                 <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '14px' }} disabled={loading}>
-                                    {loading ? '⏳ Connexion...' : 'Se connecter'}
+                                    {loading ? 'Connexion...' : 'Se connecter'}
                                 </button>
                             </div>
 
@@ -281,7 +280,7 @@ export default function AuthPage() {
                                 fontSize: '1.5rem',
                                 marginBottom: 8,
                             }}>
-                                Bienvenue à bord ! 🚀
+                                Bienvenue à bord !
                             </h2>
                             <p style={{
                                 color: 'var(--color-text-muted)',
@@ -331,7 +330,7 @@ export default function AuthPage() {
                                 </label>
 
                                 <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '14px', marginTop: 8 }} disabled={loading}>
-                                    {loading ? '⏳ Création...' : 'Créer mon compte et décoller 🚀'}
+                                    {loading ? 'Création...' : 'Créer mon compte'}
                                 </button>
                             </div>
 

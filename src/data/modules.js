@@ -273,11 +273,11 @@ export const QUIZ_QUESTIONS = {
 };
 
 export const DAILY_MOTIVATIONS = [
-    "L'IA ne remplace pas les humains, elle amplifie leurs capacités. À toi de jouer ! 💪",
-    "Chaque leçon terminée est un pas vers la maîtrise. Continue ! 🚀",
-    "Les meilleurs stratèges IA ont commencé comme toi. Keep going! 🌟",
-    "72% des entreprises prévoient d'adopter l'IA d'ici 2027. Tu as de l'avance ! 📈",
-    "Un bon prompt peut valoir des heures de travail. Apprends à les maîtriser ! ✍️",
-    "Ta streak est impressionnante. Ne la lâche pas ! 🔥",
-    "L'excellence n'est pas un acte, c'est une habitude. Bravo pour ta régularité ! ⭐",
+    "L'IA ne remplace pas les humains, elle amplifie leurs capacités. À toi de jouer !",
+    "Chaque leçon terminée est un pas vers la maîtrise. Continue !",
+    "Les meilleurs stratèges IA ont commencé comme toi. Keep going!",
+    "72% des entreprises prévoient d'adopter l'IA d'ici 2027. Tu as de l'avance !",
+    "Un bon prompt peut valoir des heures de travail. Apprends à les maîtriser !",
+    "Ta streak est impressionnante. Ne la lâche pas !",
+    "L'excellence n'est pas un acte, c'est une habitude. Bravo pour ta régularité !",
 ];

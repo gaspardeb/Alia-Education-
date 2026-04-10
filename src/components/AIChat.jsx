@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { streamResponse } from '../services/aiService';
 import { useTheme } from '../context/ThemeContext';
+import { useUser } from '../context/UserContext';
+import { Link } from 'react-router-dom';
 
 /* ─────────────────────────────────────────────
    AIChat — composant de chat pédagogique réutilisable
@@ -12,6 +14,7 @@ import { useTheme } from '../context/ThemeContext';
 ───────────────────────────────────────────── */
 export default function AIChat({ context = null, compact = false, placeholder, onLoading }) {
     const { isDark, c } = useTheme();
+    const { getAIRequestsLeft, incrementAIRequests, isPremium } = useUser();
     const [messages, setMessages] = useState([
         {
             id: 'welcome',
@@ -36,9 +39,11 @@ export default function AIChat({ context = null, compact = false, placeholder, o
     const sendMessage = useCallback(async (text) => {
         const userText = (text || input).trim();
         if (!userText || isStreaming) return;
+        if (getAIRequestsLeft() <= 0) return;
 
         setInput('');
         abortRef.current = false;
+        incrementAIRequests();
 
         // Ajout du message utilisateur
         const userMsg = { id: Date.now(), role: 'user', content: userText, timestamp: Date.now() };
@@ -263,6 +268,61 @@ export default function AIChat({ context = null, compact = false, placeholder, o
                 </div>
             )}
 
+            {/* Limite de requêtes atteinte */}
+            {getAIRequestsLeft() <= 0 && (
+                <div style={{
+                    padding: '14px 16px',
+                    borderRadius: 'var(--radius-md)',
+                    background: 'rgba(245,158,11,0.08)',
+                    border: '1px solid rgba(245,158,11,0.25)',
+                    marginBottom: 12,
+                    flexShrink: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: 12,
+                }}>
+                    <div>
+                        <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.85rem', color: '#F59E0B', marginBottom: 2 }}>
+                            Limite de requêtes atteinte
+                        </div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+                            {isPremium() ? '50/50 requêtes utilisées.' : '5/5 requêtes gratuites utilisées.'}
+                        </div>
+                    </div>
+                    {!isPremium() && (
+                        <Link to="/pricing" style={{
+                            padding: '7px 14px',
+                            borderRadius: 'var(--radius-md)',
+                            background: 'linear-gradient(135deg, #F59E0B, #D97706)',
+                            color: 'white',
+                            fontFamily: 'var(--font-display)',
+                            fontWeight: 600,
+                            fontSize: '0.78rem',
+                            textDecoration: 'none',
+                            whiteSpace: 'nowrap',
+                            flexShrink: 0,
+                        }}>
+                            Passer Premium
+                        </Link>
+                    )}
+                </div>
+            )}
+
+            {/* Compteur de requêtes */}
+            {getAIRequestsLeft() > 0 && (
+                <div style={{
+                    fontSize: '0.68rem',
+                    color: getAIRequestsLeft() <= 2 ? '#F59E0B' : 'var(--color-text-muted)',
+                    textAlign: 'right',
+                    marginBottom: 6,
+                    flexShrink: 0,
+                    fontFamily: 'var(--font-mono)',
+                }}>
+                    {getAIRequestsLeft()} requête{getAIRequestsLeft() > 1 ? 's' : ''} restante{getAIRequestsLeft() > 1 ? 's' : ''}
+                </div>
+            )}
+
             {/* Input */}
             <div style={{
                 display: 'flex',
@@ -283,7 +343,7 @@ export default function AIChat({ context = null, compact = false, placeholder, o
                     onKeyDown={handleKeyDown}
                     placeholder={placeholder || (context ? 'Pose ta question sur ce concept...' : "Pose ta question à ALIA...")}
                     rows={1}
-                    disabled={isStreaming}
+                    disabled={isStreaming || getAIRequestsLeft() <= 0}
                     style={{
                         flex: 1,
                         background: 'transparent',
@@ -301,7 +361,7 @@ export default function AIChat({ context = null, compact = false, placeholder, o
                 />
                 <button
                     onClick={() => sendMessage()}
-                    disabled={!input.trim() || isStreaming}
+                    disabled={!input.trim() || isStreaming || getAIRequestsLeft() <= 0}
                     style={{
                         width: 36,
                         height: 36,

@@ -26,6 +26,7 @@ export default function Dashboard() {
     // Alia state management
     const [aliaState, setAliaState] = useState('idle');
     const [aliaMessage, setAliaMessage] = useState(null);
+    const [helpOpen, setHelpOpen] = useState(false);
     const inactivityTimer = useRef(null);
 
     const resetInactivityTimer = () => {
@@ -51,9 +52,7 @@ export default function Dashboard() {
     }, []);
 
     const handleAliaClick = () => {
-        const msg = MOTIVATIONAL_MESSAGES[Math.floor(Math.random() * MOTIVATIONAL_MESSAGES.length)];
-        setAliaMessage(msg);
-        setTimeout(() => setAliaMessage(null), 4000);
+        setHelpOpen(prev => !prev);
     };
 
     const motivation = DAILY_MOTIVATIONS[Math.floor(Math.random() * DAILY_MOTIVATIONS.length)];
@@ -105,11 +104,6 @@ export default function Dashboard() {
                         }}>
                             Bonjour {user.firstName}
                         </h1>
-                        <p style={{
-                            color: 'var(--color-text-muted)',
-                            fontSize: '0.9rem',
-                            textTransform: 'capitalize',
-                        }}>{today}</p>
                         <p style={{
                             color: 'var(--color-accent)',
                             fontSize: '0.8rem',
@@ -314,6 +308,95 @@ export default function Dashboard() {
                     ))}
                 </div>
             </main>
+
+            {/* ═══ Panneau d'aide ═══ */}
+            {helpOpen && (
+                <div style={{
+                    position: 'fixed',
+                    bottom: 140,
+                    right: 24,
+                    width: 300,
+                    borderRadius: 'var(--radius-lg)',
+                    background: c.surface,
+                    border: '1px solid var(--color-border)',
+                    boxShadow: '0 8px 32px rgba(124, 58, 237, 0.2)',
+                    zIndex: 199,
+                    overflow: 'hidden',
+                    animation: 'fadeInUp 0.25s ease-out',
+                }}>
+                    {/* Header */}
+                    <div style={{
+                        padding: '14px 16px',
+                        borderBottom: '1px solid var(--color-border)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <img src="/assets/alia-mascotte.png" alt="ALIA" style={{ width: 28, height: 28, objectFit: 'contain' }} />
+                            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.9rem' }}>
+                                Besoin d'aide ?
+                            </span>
+                        </div>
+                        <button
+                            onClick={() => setHelpOpen(false)}
+                            style={{
+                                background: 'none', border: 'none', cursor: 'pointer',
+                                color: 'var(--color-text-muted)', fontSize: '1rem', lineHeight: 1,
+                                padding: 4,
+                            }}
+                        >
+                            ✕
+                        </button>
+                    </div>
+
+                    {/* Corps */}
+                    <div style={{ padding: '16px' }}>
+                        <p style={{
+                            fontSize: '0.82rem',
+                            color: 'var(--color-text-muted)',
+                            lineHeight: 1.6,
+                            marginBottom: 16,
+                            fontFamily: 'var(--font-body)',
+                        }}>
+                            Tu rencontres un problème ou tu as une question sur la plateforme ? Notre équipe est là pour t'aider.
+                        </p>
+
+                        <a
+                            href={`mailto:contact@alia-education.com?subject=Demande d'aide — ALIA&body=Bonjour,%0A%0AJ'ai besoin d'aide concernant :%0A%0A`}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: 8,
+                                padding: '10px 16px',
+                                borderRadius: 'var(--radius-md)',
+                                background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-light))',
+                                color: 'white',
+                                fontFamily: 'var(--font-display)',
+                                fontWeight: 600,
+                                fontSize: '0.85rem',
+                                textDecoration: 'none',
+                                transition: 'opacity 0.2s',
+                            }}
+                            onMouseEnter={e => e.currentTarget.style.opacity = '0.88'}
+                            onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                        >
+                            Contacter le support
+                        </a>
+
+                        <p style={{
+                            fontSize: '0.7rem',
+                            color: 'var(--color-text-muted)',
+                            textAlign: 'center',
+                            marginTop: 10,
+                            fontFamily: 'var(--font-mono)',
+                        }}>
+                            contact@alia-education.com
+                        </p>
+                    </div>
+                </div>
+            )}
 
             {/* ═══ ALIA — Fixed companion (bottom-right) ═══ */}
             <AliaCharacter

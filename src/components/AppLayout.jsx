@@ -114,7 +114,7 @@ export default function AppLayout() {
                                     gap: 12,
                                     fontSize: '0.9rem',
                                     fontFamily: 'var(--font-display)',
-                                    color: isActive ? 'white'
+                                    color: isActive ? 'var(--color-primary-light)'
                                         : link.highlight ? 'var(--color-accent)'
                                         : link.isPricing ? 'var(--color-gold)'
                                         : 'var(--color-text-muted)',

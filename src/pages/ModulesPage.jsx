@@ -2,10 +2,13 @@ import { useUser } from '../context/UserContext';
 import { MODULES } from '../data/modules';
 import ModuleCard from '../components/ModuleCard';
 
+const PREMIUM_MODULES = [3, 4, 5];
+
 export default function ModulesPage() {
-    const { user } = useUser();
+    const { user, isPremium } = useUser();
 
     const getModuleStatus = (mod) => {
+        if (PREMIUM_MODULES.includes(mod.id) && !isPremium()) return 'premium';
         const completed = mod.lessons.filter(l => user.completedLessons.includes(l.id)).length;
         if (completed === mod.lessons.length) return 'completed';
         if (completed > 0) return 'in-progress';
